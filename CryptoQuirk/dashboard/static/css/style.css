@@ -1,0 +1,45 @@
+header {
+    padding: 3% 0 3% 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+h2.text-muted {
+    font-size: 1.4em;
+    color: rgb(173, 172, 172) !important;
+}
+
+body {
+    background-color: #575656 !important;
+    color: #fff !important;
+    height: 100%;
+}
+
+footer {
+    position: relative;
+    bottom: 0;
+}
+
+.card {
+    border: 3px solid !important;
+    border-radius: 0.6rem !important;
+    text-align: center;
+    background-color: black !important;
+    box-shadow: 0 0.9rem 1rem rgba(0, 0, 0, 0.3) !important;
+}
+
+small {
+    font-size: .7em !important;
+}
+
+.rising {
+    border-color: greenyellow !important;
+}
+
+.falling {
+    border-color: red !important;
+}
+
+a:not(.nav-link) {
+    color: #fff !important;
+    text-decoration: none !important;
+}

@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block js_files %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock js_files %}
+
+{% block h1 %}
+{{ coin.name }}
+{% endblock h1 %}
+
+{% block h2 %}
+{{ coin.symbol|upper }}
+{% endblock h2 %}
+
+{% block main %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-3 mb-5">
+            <div class="card h-100">
+                <img class="card-img-top p-4" src="{{ coin.logo }}" alt="{{ coin.symbol|title }} Logo">
+                <div class="card-body">
+                    <h4 class="card-title">
+                        {{ coin.name }}
+                    </h4>
+                </div>
+                <div class="card-footer text-muted">
+                    <small>Last updated: {{ coin.updated|date:"H:i (e)" }}</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9 col-md-9 col-sm-9 mb-5">
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
+</div>
+{% endblock main %}
+
+{% block script %}
+<script>
+    const labels = [
+    {% for history_data in history %}'{{ history_data.date }}',{% endfor %}
+    ];
+    const data = {
+        labels: labels,
+        datasets: [{
+            label: '{{ coin.name }} price',
+            backgroundColor: 'rgba(255,99,132,0.2)',
+            borderColor: 'rgba(255,99,132,1)',
+            borderWidth: 1,
+            hoverBackgroundColor: 'rgba(255,99,132,0.4)',
+            hoverBorderColor: 'rgba(255,99,132,1)',
+            borderJoinStyle: 'round',
+            pointRadius: 0,
+            pointHitRadius: 50,
+            data: [{% for history_data in history %}{{ history_data.price }},{% endfor %}],
+        }]
+    };
+    const config = {
+        type: 'line',
+        data: data,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        callback: function(value, index, values) {
+                            return value.toLocaleString('en-US', {
+                                style: 'currency',
+                                currency: 'USD',
+                                minimumFractionDigits: 8
+                            });
+                        }
+                    }
+                }],
+            },
+            legend: {
+                display: false,
+            },
+        }
+    };
+    const myChart = new Chart(
+        document.getElementById('myChart'),
+        config
+    );
+</script>
+{% endblock script %}

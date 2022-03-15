@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load calculate_minutes %}
+
+{% block h1 %}
+cryptoquirk.com
+{% endblock h1 %}
+
+{% block h2 %}
+Realtime crypto currency price analysis tool
+{% endblock h2 %}
+
+{% block main %}
+<div class="container">
+    <div class="row">
+        {% for coin in coins %}
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-5">
+            
+            <div class="card {% if coin.current_change > 0 %}rising{% else %}falling{% endif %}">
+                <div class="card-body">
+                    <a href="{% url 'coin_details' coin.id %}">
+                        <h5 class="card-title">
+                            {{ coin.name }}
+                        </h5>
+                        <p class="card-text text-muted mb-2">
+                            {{ coin.symbol|upper}}
+                        </p>
+                        <img class="mb-2" src="{{ coin.logo }}">
+                    </a>
+
+                    <p class="card-text">
+                        <strong>Price: </strong><br> ${{ coin.current_price }}
+                    </p>
+                    <p class="card-text">
+                        <strong>Market Cap: </strong><br> ${{ coin.current_market_cap }}
+                    </p>
+                    <p class="card-text">
+                        <strong>24h Volume: </strong><br> ${{ coin.current_volume }}
+                    </p>
+                    <p class="card-text">
+                        <strong>24h Change: </strong><br> {{ coin.current_change }}%
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Updated at: {{ coin.updated|date:"H:i:s (e)" }}</small>
+                </div>
+            </div>
+            
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock main %}
