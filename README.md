@@ -24,3 +24,8 @@ Then everything should work correctly.
 
  - [ ] Add htmx support to dynamically refresh homepage and all coin prices
  - [ ] Ajax to dynamically refresh chart data from serverside endpoints
+
+## Screenshots
+![Homepage](screenshots/1.png)
+
+![Coin Details Page](screenshots/2.png)
